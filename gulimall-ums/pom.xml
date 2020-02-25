@@ -12,11 +12,12 @@
     <artifactId>gulimall-ums</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>gulimall-ums</name>
-    <description>用户管理系统</description>
+    <description>用户管理</description>
 
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR1</spring-cloud.version>
+        <mysql.version>5.1.47</mysql.version>
     </properties>
 
     <dependencies>
@@ -24,6 +25,20 @@
             <groupId>com.atguigu</groupId>
             <artifactId>gulimall-core</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,14 +61,6 @@
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>HdrHistogram</artifactId>
-                    <groupId>org.hdrhistogram</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>archaius-core</artifactId>
-                    <groupId>com.netflix.archaius</groupId>
-                </exclusion>
-                <exclusion>
                     <artifactId>guava</artifactId>
                     <groupId>com.google.guava</groupId>
                 </exclusion>
@@ -62,12 +69,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -87,7 +88,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <dependencyManagement>
         <dependencies>
             <dependency>

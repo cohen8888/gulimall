@@ -13,6 +13,8 @@
         <module>guli-generator</module>
         <module>gulimall-core</module>
         <module>gulimall-admin</module>
+        <module>gulimall-pms</module>
+        <module>gulimall-ums</module>
     </modules>
 
 </project>

@@ -1,4 +1,4 @@
-package com.atguigu.gulimallums;
+package com.atguigu.gulimall.ums;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
