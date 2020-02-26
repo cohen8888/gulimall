@@ -4,6 +4,12 @@ spring:
     url: jdbc:mysql://192.168.31.216:3306/guli_pms?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
     password: Abcd/1234
+  application:
+    name: gulimall-pms
+  cloud:
+    nacos:
+      discovery:
+        server-addr:127.0.0.1:8848
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/pms/*.xml
@@ -11,4 +17,4 @@ mybatis-plus:
     db-config:
       id-type: auto
 server:
-  port: 10000
+  port: 8070
