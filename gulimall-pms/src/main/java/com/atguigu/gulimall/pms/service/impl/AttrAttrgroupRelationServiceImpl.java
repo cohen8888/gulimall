@@ -1,5 +1,6 @@
 package com.atguigu.gulimall.pms.service.impl;
 
+import com.atguigu.gulimall.pms.vo.AttrGroupRelationVO;
 import org.springframework.stereotype.Service;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,6 +18,7 @@ import com.atguigu.gulimall.pms.service.AttrAttrgroupRelationService;
 @Service("attrAttrgroupRelationService")
 public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelationEntity> implements AttrAttrgroupRelationService {
 
+
     @Override
     public PageVo queryPage(QueryCondition params) {
         IPage<AttrAttrgroupRelationEntity> page = this.page(
@@ -25,6 +27,17 @@ public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupR
         );
 
         return new PageVo(page);
+    }
+
+    @Override
+    public void deleteRelationAttrGroup(AttrGroupRelationVO[] agrs) {
+        for (AttrGroupRelationVO item: agrs) {
+            QueryWrapper<AttrAttrgroupRelationEntity> attrAttrgroupRelationEntityQueryWrapper = new QueryWrapper<>();
+            attrAttrgroupRelationEntityQueryWrapper
+                    .eq("attr_group_id", item.getAttrGroupId())
+                    .eq("attr_id", item.getAttrId());
+            remove(attrAttrgroupRelationEntityQueryWrapper);
+        }
     }
 
 }

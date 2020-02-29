@@ -41,10 +41,16 @@ public class SpuInfoController {
     @PreAuthorize("hasAuthority('pms:spuinfo:list')")
     public Resp<PageVo> list(QueryCondition queryCondition) {
         PageVo page = spuInfoService.queryPage(queryCondition);
-
         return Resp.ok(page);
     }
 
+    @ApiOperation("商品按类别查询")
+    @GetMapping("/simple/search")
+    public Resp<Object> querySpuInfoPage(QueryCondition queryCondition,
+                                         @RequestParam(value = "catId", defaultValue = "0") Long catId){
+        PageVo page = spuInfoService.queryPageByCatId(queryCondition, catId);
+        return Resp.ok(page);
+    }
 
     /**
      * 信息

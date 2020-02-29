@@ -1,12 +1,14 @@
 package com.atguigu.gulimall.pms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
+import java.util.List;
 
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,14 @@ import com.atguigu.gulimall.pms.service.SkuInfoService;
 public class SkuInfoController {
     @Autowired
     private SkuInfoService skuInfoService;
+
+    @ApiOperation("根据商品的id查出所有的sku信息")
+    @GetMapping("/list/spu/{spuId}")
+    public Resp<List<SkuInfoEntity>> getSpuSkuInfo(@PathVariable("spuId") Long spuId){
+        List<SkuInfoEntity> skuInfoEntitys = skuInfoService.list(new QueryWrapper<SkuInfoEntity>().eq("spu_id", spuId));
+        return Resp.ok(skuInfoEntitys);
+    }
+
 
     /**
      * 列表

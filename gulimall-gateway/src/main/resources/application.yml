@@ -1,0 +1,38 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.31.216:8848
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowCredentials: true #允许携带自定义cookie跨域
+      routes:
+        - id: pms_route
+          uri: lb://gulimall-pms #http://192.168.40.1:8077
+          predicates:
+            - Path=/pms/**
+        - id: oms_route
+          uri: lb://gulimall-oms
+          predicates:
+            - Path=/oms/**
+        - id: sms_route
+          uri: lb://gulimall-sms
+          predicates:
+            - Path=/sms/**
+        - id: ums_route
+          uri: lb://gulimall-ums
+          predicates:
+            - Path=/ums/**
+        - id: ums_route
+          uri: lb://gulimall-wms
+          predicates:
+            - Path=/wms/**

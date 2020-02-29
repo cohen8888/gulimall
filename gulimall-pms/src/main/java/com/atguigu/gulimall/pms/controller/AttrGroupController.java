@@ -1,12 +1,12 @@
 package com.atguigu.gulimall.pms.controller;
 
 import java.util.Arrays;
-import java.util.Map;
 
 
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.pms.vo.AttrGroupWithAttrVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,16 @@ public class AttrGroupController {
     @Autowired
     private AttrGroupService attrGroupService;
 
+
+    @ApiOperation("查询某个三级分类下的所有属性分组")
+    @GetMapping("/list/category/{catId}")
+    public Resp<PageVo> getCategoryAttrGroups(QueryCondition queryCondition, @PathVariable("catId") Long cateId){
+
+        PageVo pageVo = attrGroupService.queryPageGroupsByCateId(queryCondition, cateId);
+        return Resp.ok(pageVo);
+    }
+
+
     /**
      * 列表
      */
@@ -43,6 +53,15 @@ public class AttrGroupController {
         PageVo page = attrGroupService.queryPage(queryCondition);
 
         return Resp.ok(page);
+    }
+
+    //attrgroup/info/withattrs/1
+    @ApiOperation("获取属性分组关联信息")
+    @GetMapping("/info/withattrs/{attrGroupId}")
+    @PreAuthorize("hasAuthority('pms:attrgroup:list')")
+    public Resp<AttrGroupWithAttrVO> getAttrGroupRelationInfo(@PathVariable("attrGroupId") Long attrGroupId){
+        AttrGroupWithAttrVO attrGroupWithAttrVo = attrGroupService.handlerAttrGroupRelationInfo(attrGroupId);
+        return Resp.ok(attrGroupWithAttrVo);
     }
 
 

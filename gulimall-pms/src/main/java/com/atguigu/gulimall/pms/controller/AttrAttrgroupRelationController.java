@@ -7,6 +7,7 @@ import java.util.Map;
 import com.atguigu.gulimall.commons.bean.PageVo;
 import com.atguigu.gulimall.commons.bean.QueryCondition;
 import com.atguigu.gulimall.commons.bean.Resp;
+import com.atguigu.gulimall.pms.vo.AttrGroupRelationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,16 @@ public class AttrAttrgroupRelationController {
         PageVo page = attrAttrgroupRelationService.queryPage(queryCondition);
 
         return Resp.ok(page);
+    }
+
+
+    @ApiOperation("删除属性与分组的关联关系")
+    @PostMapping("/delete/attr")
+    public Resp<Object> deleteRelationAttrGroup(@RequestBody AttrGroupRelationVO[] agrs){
+        if (agrs != null && agrs.length > 0){
+            attrAttrgroupRelationService.deleteRelationAttrGroup(agrs);
+        }
+        return Resp.ok(null);
     }
 
 

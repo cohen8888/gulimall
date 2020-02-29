@@ -18,7 +18,6 @@ public class HelloController {
     @GetMapping("/hello")
     public String hello(){
         String msg = worldService.world();
-
         return "hello" + msg + content;
     }
 }

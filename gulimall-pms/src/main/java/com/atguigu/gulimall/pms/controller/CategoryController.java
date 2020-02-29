@@ -1,6 +1,7 @@
 package com.atguigu.gulimall.pms.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,6 +34,20 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @ApiOperation("获取指定等级的分类信息")
+    @GetMapping("/list/tree")
+    public Resp<Object> listTree(@RequestParam(value = "level") Integer level){
+        List<CategoryEntity> resultData = categoryService.getCategoryByLevel(level);
+        return Resp.ok(resultData);
+    }
+
+    @ApiOperation("获取指定分类的子分类")
+    @GetMapping("/list/children/tree/{catId}")
+    public Resp<Object> listChildrenTree(@PathVariable Integer catId){
+        List<CategoryEntity> resultData = categoryService.getCategoryChildrenById(catId);
+        return Resp.ok(resultData);
+    }
+
     /**
      * 列表
      */
@@ -40,6 +55,7 @@ public class CategoryController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('pms:category:list')")
     public Resp<PageVo> list(QueryCondition queryCondition) {
+        System.out.println("ddd");
         PageVo page = categoryService.queryPage(queryCondition);
 
         return Resp.ok(page);

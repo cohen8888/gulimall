@@ -16,42 +16,22 @@
     别人依赖核心包一定要将他放在最前面，可能与项目的其他jar版本冲突，按照先声明者优先就会用到我们核心包里面的jar，比如swagger引的guava-->
 
     <properties>
-        <nacos.version>2.2.0.RELEASE</nacos.version>
         <mybatisplus.version>3.3.1</mybatisplus.version>
         <mysql.version>5.1.47</mysql.version>
         <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${nacos.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>archaius-core</artifactId>
-                    <groupId>com.netflix.archaius</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>servo-core</artifactId>
-                    <groupId>com.netflix.servo</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${nacos.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -79,8 +59,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.12</version>
-            <scope>provided</scope>
-
         </dependency>
     </dependencies>
 

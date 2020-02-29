@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableDiscoveryClient
-public class PmsCloundConfig {
+public class PmsCloundConfiguration {
 
 }
