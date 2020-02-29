@@ -53,7 +53,27 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         attrGroupEntityQueryWrapper.eq("catelog_id", cateId);
         //
         IPage<AttrGroupEntity> data = this.page(page, attrGroupEntityQueryWrapper);
-        PageVo vo = new PageVo(data);
+
+        List<AttrGroupEntity> records = data.getRecords();
+
+        List<AttrGroupWithAttrVO> groupWithAttrVOS = new ArrayList<AttrGroupWithAttrVO>(records.size());
+        for (AttrGroupEntity record: records) {
+            AttrGroupWithAttrVO vo = new AttrGroupWithAttrVO();
+            BeanUtils.copyProperties(record, vo);
+            Long groupId = record.getAttrGroupId();
+            //查询分组的所有属性
+            List<AttrAttrgroupRelationEntity> relationEntities = attrgroupRelationDao.selectList(new QueryWrapper<AttrAttrgroupRelationEntity>().eq("attr_group_id", groupId));
+            if (relationEntities != null && relationEntities.size() >0){
+                List<Long> attrIds = new ArrayList<>();
+                for (AttrAttrgroupRelationEntity entity : relationEntities) {
+                    attrIds.add(entity.getAttrId());
+                }
+                List<AttrEntity> attrEntities = attrDao.selectList(new QueryWrapper<AttrEntity>().in("attr_id", attrIds));
+                vo.setAttrEntities(attrEntities);
+            }
+            groupWithAttrVOS.add(vo);
+        }
+        PageVo vo = new PageVo(groupWithAttrVOS, data.getTotal(), data.getSize(), data.getCurrent());
         return vo;
     }
 
@@ -63,7 +83,6 @@ public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEnt
         AttrGroupWithAttrVO attrGroupWithAttrVo = new AttrGroupWithAttrVO();
 
         //获取当前分组信息
-
         AttrGroupEntity attrGroupEntity = this.getById(attrGroupId);
         BeanUtils.copyProperties(attrGroupEntity, attrGroupWithAttrVo);
 
